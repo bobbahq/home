@@ -20,9 +20,9 @@
       background: url('background.gif') center center no-repeat;
       background-size: cover;
       image-rendering: pixelated;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: sans-serif;
+      min-height: 100vh;
+      overflow: auto;
       height: 100vh;
       font-family: sans-serif;
     }
@@ -177,6 +177,66 @@
         label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
       }
     }
+      const sticker = document.getElementById('exploreSticker');
+    const exploreDrag = document.getElementById('exploreDrag');
+    const margin = 60;
+    const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
+
+    let x, y;
+    let attempts = 0;
+    do {
+      x = Math.random() * (window.innerWidth - 240 - margin * 2) + margin;
+      y = Math.random() * (window.innerHeight - 100 - margin * 2) + margin;
+      attempts++;
+      if (attempts > 50) break;
+    } while (
+      x + 240 > logoBox.left - 20 &&
+      x < logoBox.right + 20 &&
+      y + 100 > logoBox.top - 20 &&
+      y < logoBox.bottom + 20
+    );
+
+    sticker.style.left = `${x}px`;
+    sticker.style.top = `${y}px`;
+
+    let isDragging = false;
+    let offsetX = 0, offsetY = 0;
+
+    exploreDrag.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      offsetX = e.clientX - sticker.offsetLeft;
+      offsetY = e.clientY - sticker.offsetTop;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      sticker.style.left = `${e.clientX - offsetX}px`;
+      sticker.style.top = `${e.clientY - offsetY}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    exploreDrag.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      offsetX = touch.clientX - sticker.offsetLeft;
+      offsetY = touch.clientY - sticker.offsetTop;
+      e.preventDefault();
+    });
+
+    document.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const touch = e.touches[0];
+      sticker.style.left = `${touch.clientX - offsetX}px`;
+      sticker.style.top = `${touch.clientY - offsetY}px`;
+    });
+
+    document.addEventListener('touchend', () => {
+      isDragging = false;
+    });
   </script>
 </body>
 </html>
