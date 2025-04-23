@@ -49,7 +49,8 @@
       color: black;
       line-height: 1;
     }
-      .lang-toggle {
+
+    .lang-toggle {
       position: fixed;
       top: 1rem;
       right: 1rem;
@@ -67,59 +68,26 @@
       font-family: 'Press Start 2P', monospace;
       font-size: 0.75rem;
     }
-      .floating-sticker {
-      position: absolute;
-      z-index: 5;
-      transition: transform 0.3s ease;
-    }
-      .floating-sticker {
+
+    .floating-sticker {
       position: absolute;
       z-index: 5;
       transition: transform 0.3s ease;
       cursor: move;
     }
-      @keyframes rainbowFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-      @keyframes driftBackground {
-  0%   { background-position: 50% 50%; }
-  10%  { background-position: 60% 40%; }
-  20%  { background-position: 40% 60%; }
-  30%  { background-position: 65% 55%; }
-  40%  { background-position: 35% 45%; }
-  50%  { background-position: 55% 65%; }
-  60%  { background-position: 45% 35%; }
-  70%  { background-position: 60% 50%; }
-  80%  { background-position: 50% 60%; }
-  90%  { background-position: 48% 52%; }
-  100% { background-position: 50% 50%; }
-}
-  15% { background-position: 70% 40%; }
-  30% { background-position: 30% 60%; }
-  45% { background-position: 60% 30%; }
-  60% { background-position: 40% 70%; }
-  75% { background-position: 55% 45%; }
-  100% { background-position: 50% 50%; }
-}
-  20% { background-position: 60% 48%; }
-  40% { background-position: 42% 55%; }
-  60% { background-position: 58% 50%; }
-  80% { background-position: 49% 61%; }
-  100% { background-position: center; }
-}
-  20% { background-position: 10% 3%; }
-  40% { background-position: 6% 8%; }
-  60% { background-position: 12% 4%; }
-  80% { background-position: 3% 10%; }
-  100% { background-position: 0% 0%; }
-}
-  50% { background-position: 20% 20%; }
-  100% { background-position: 0% 0%; }
-}
-      50% { background-position: 100% 100%; }
-      100% { background-position: 0% 0%; }
+
+    @keyframes driftBackground {
+      0%   { background-position: 50% 50%; }
+      10%  { background-position: 60% 40%; }
+      20%  { background-position: 40% 60%; }
+      30%  { background-position: 65% 55%; }
+      40%  { background-position: 35% 45%; }
+      50%  { background-position: 55% 65%; }
+      60%  { background-position: 45% 35%; }
+      70%  { background-position: 60% 50%; }
+      80%  { background-position: 50% 60%; }
+      90%  { background-position: 48% 52%; }
+      100% { background-position: 50% 50%; }
     }
   </style>
 </head>
@@ -138,7 +106,7 @@
   <script>
     const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
     const letters = document.querySelectorAll(".symbol");
-    var completedLetters = 0;
+    let completedLetters = 0;
 
     function flicker(el, target, prevSymbol, min = 6, max = 12) {
       let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -179,129 +147,35 @@
 
     animate();
   </script>
+
   <div class="lang-toggle">
     <button onclick="setLang('en')">eng</button>
     <button onclick="setLang('es')">esp</button>
   </div>
 
   <div id="exploreSticker" class="floating-sticker" style="width: 240px; height: 100px; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); position: absolute;">
-    <div id="exploreDrag" style="position:absolute; top: -0.4rem; right: 0.3rem; padding:0.4rem; font-family:'Press Start 2P', monospace; font-size: 1rem; display: flex; gap: 0.05rem; align-items: center; justify-content: center; height: 2.6rem; cursor: move;">
-  <span style="color: #ff605c;">•</span>
-  <span style="color: #ffbd44;">•</span>
-  <span style="color: #00ca56;">•</span>
-</div>
-  <div style="position: absolute; top: -400px; left: -520px; width: 1280px; height: 914px; background: url('room_pov.jpg') no-repeat; background-size: auto; animation: driftBackground 15s infinite linear;"></div>
-<a href="https://bobba.fm/rooms" target="_blank" style="position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-family: 'VT323', monospace; font-size: 1.1rem; color: white; padding: 0.4rem;">
-  <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
-    explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
-  </span>
-</a>
-</div>
+    <div id="exploreDrag" style="position:absolute; top: -0.4rem; right: 0.3rem; z-index: 3; padding:0.4rem; font-family:'Press Start 2P', monospace; font-size: 1rem; display: flex; gap: 0.05rem; align-items: center; justify-content: center; height: 2.6rem; cursor: move;">
+      <span style="color: #ff605c;">•</span>
+      <span style="color: #ffbd44;">•</span>
+      <span style="color: #00ca56;">•</span>
+    </div>
+    <div style="position: absolute; top: -400px; left: -520px; width: 1280px; height: 914px; background: url('room_pov.jpg') no-repeat; background-size: auto; animation: driftBackground 15s infinite linear; z-index: 1;"></div>
+    <a href="https://bobba.fm/rooms" target="_blank" style="position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-family: 'VT323', monospace; font-size: 1.1rem; color: white; padding: 0.4rem;">
+      <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
+        explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
+      </span>
+    </a>
+  </div>
 
   <script>
     function setLang(lang) {
-  const label = document.getElementById("exploreLabel");
-  if (lang === 'es') {
-    label.innerHTML = 'explorar salas <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
-  } else {
-    label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
-  }
-} else {
-        img.src = 'explore_rooms_en.gif';
+      const label = document.getElementById("exploreLabel");
+      if (lang === 'es') {
+        label.innerHTML = 'explorar salas <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
+      } else {
+        label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
       }
     }
-
-    window.addEventListener('DOMContentLoaded', () => {
-  const sticker = document.getElementById('exploreSticker');
-    const margin = window.innerWidth < 600 ? 20 : 80;
-  let x, y;
-  const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
-  let attempts = 0;
-  do {
-    x = Math.random() * (window.innerWidth - 240 - margin * 2) + margin;
-    y = Math.random() * (window.innerHeight - 120 - margin * 2) + margin;
-    attempts++;
-    if (attempts > 50) break; // fallback in case of infinite loop
-  } while (
-    x + 160 > logoBox.left - 20 &&
-    x < logoBox.right + 20 &&
-    y + 100 > logoBox.top - 20 &&
-    y < logoBox.bottom + 20
-  );
-
-  const initialAngle = (Math.random() * 20 - 10).toFixed(2);
-
-  sticker.style.left = `${x}px`;
-  sticker.style.top = `${y}px`;
-  sticker.style.transform = `rotate(${initialAngle}deg)`;
-
-  let isDragging = false;
-  let offsetX = 0, offsetY = 0;
-
-  // already declared
-  exploreDrag.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    offsetX = e.clientX - sticker.offsetLeft;
-    offsetY = e.clientY - sticker.offsetTop;
-    e.preventDefault();
-  });
-    e.stopPropagation();
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - offsetX;
-    const dy = e.clientY - offsetY;
-    sticker.style.left = `${dx}px`;
-    sticker.style.top = `${dy}px`;
-    const swing = (dx - x) * 0.02;
-    sticker.style.transform = `rotate(${swing}deg)`;
-  });
-
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    sticker.style.transition = 'transform 0.4s ease-out';
-    sticker.style.transform = `rotate(${initialAngle}deg) scale(1.01)`;
-    setTimeout(() => {
-      sticker.style.transform = `rotate(${initialAngle}deg)`;
-      sticker.style.transition = '';
-    }, 250);
-  });
-
-  // Touch support for mobile
-  const exploreDrag = document.getElementById('exploreDrag');
-
-  exploreDrag.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    const touch = e.touches[0];
-    offsetX = touch.clientX - sticker.getBoundingClientRect().left;
-    offsetY = touch.clientY - sticker.getBoundingClientRect().top;
-    e.preventDefault();
-  });
-
-  document.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const touch = e.touches[0];
-    const dx = touch.clientX - offsetX;
-    const dy = touch.clientY - offsetY;
-    sticker.style.left = `${dx}px`;
-    sticker.style.top = `${dy}px`;
-    const swing = (dx - x) * 0.05;
-    sticker.style.transform = `rotate(${swing}deg)`;
-    e.preventDefault();
-  });
-
-  document.addEventListener('touchend', () => {
-    isDragging = false;
-    sticker.style.transition = 'transform 0.4s ease-out';
-    sticker.style.transform += ' scale(1.03)';
-    setTimeout(() => {
-      sticker.style.transform = sticker.style.transform.replace(/scale\(.*?\)/, '').trim();
-      sticker.style.transition = '';
-    }, 250);
-  });
-});
   </script>
-
 </body>
 </html>
