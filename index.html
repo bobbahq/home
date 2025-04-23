@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>bobba.fm</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .box-wrapper {
+      position: relative;
+      display: inline-block;
+      background: black;
+      transform: rotate(-12deg);
+      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
+    }
+
+    .symbol-container {
+      display: flex;
+      font-size: 4rem;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+    }
+
+    .symbol {
+      display: inline-block;
+    }
+
+    .fm-tiny {
+      position: absolute;
+      top: -0.1rem;
+      right: -2rem;
+      font-size: 1.1rem;
+      font-weight: 900;
+      font-family: Arial, sans-serif;
+      color: black;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="box-wrapper">
+    <div class="symbol-container">
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="o">o</span>
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="b">b</span>
+      <span class="symbol" data-char="a">a</span>
+    </div>
+    <div class="fm-tiny">FM</div>
+  </div>
+
+  <script>
+    const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
+    const letters = document.querySelectorAll(".symbol");
+    let completedLetters = 0;
+
+    function flicker(el, target, prevSymbol, min = 6, max = 12) {
+      let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count >= cycles) {
+          el.textContent = target;
+          clearInterval(interval);
+          completedLetters++;
+          if (completedLetters === letters.length) {
+            setTimeout(animate, 6000);
+          }
+        } else {
+          let availableSymbols = symbols.filter(s => s !== prevSymbol());
+          let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+          el.textContent = newSymbol;
+          count++;
+        }
+      }, 240 + Math.random() * 100);
+    }
+
+    function shuffle(array) {
+      return array.map(v => ({ v, s: Math.random() }))
+                  .sort((a, b) => a.s - b.s)
+                  .map(obj => obj.v);
+    }
+
+    function animate() {
+      completedLetters = 0;
+      const shuffled = shuffle(Array.from(letters));
+      shuffled.forEach((el, i) => {
+        setTimeout(() => flicker(el, el.dataset.char, () => {
+          let prev = el.previousElementSibling;
+          return prev ? prev.textContent : '';
+        }), i * 200 + Math.random() * 150);
+      });
+    }
+
+    animate();
+  </script>
+</body>
+</html>
