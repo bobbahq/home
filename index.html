@@ -49,6 +49,24 @@
       color: black;
       line-height: 1;
     }
+      .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.5rem;
+      z-index: 10;
+    }
+
+    .lang-toggle button {
+      background: black;
+      color: white;
+      border: 2px solid white;
+      padding: 0.3rem 0.8rem;
+      cursor: pointer;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.75rem;
+    }
   </style>
 </head>
 <body>
@@ -107,5 +125,10 @@
 
     animate();
   </script>
+  <div class="lang-toggle">
+    <button onclick="setLang('en')">eng</button>
+    <button onclick="setLang('es')">esp</button>
+  </div>
+
 </body>
 </html>
