@@ -84,7 +84,13 @@
       100% { background-position: 0% 50%; }
     }
       @keyframes driftBackground {
-  0% { background-position: 0% 0%; }
+  0% { background-position: center; }
+  20% { background-position: 60% 48%; }
+  40% { background-position: 42% 55%; }
+  60% { background-position: 58% 50%; }
+  80% { background-position: 49% 61%; }
+  100% { background-position: center; }
+}
   20% { background-position: 10% 3%; }
   40% { background-position: 6% 8%; }
   60% { background-position: 12% 4%; }
@@ -166,7 +172,7 @@
   <span style="color: #ffbd44;">•</span>
   <span style="color: #00ca56;">•</span>
 </div>
-  <div style="position: absolute; top: 0; left: 0; width: 300px; height: 200px; background: url('room_pov.jpg') no-repeat center center; background-size: auto; animation: driftBackground 15s infinite linear;"></div>
+  <div style="position: absolute; top: 0; left: 0; width: 300px; height: 200px; background: url('room_pov.jpg') no-repeat; background-size: auto; animation: driftBackground 15s infinite linear;"></div>
 <a href="https://bobba.fm/rooms" target="_blank" style="position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-family: 'VT323', monospace; font-size: 1.1rem; color: white; padding: 0.4rem;">
   <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
     explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
