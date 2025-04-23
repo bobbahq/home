@@ -1,16 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="theme-color" content="#000000">
   <meta charset="UTF-8" />
-  <title>bobba.fm</title>
+  <title>bobba FM – it's on</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: white;
+      background: url('background.gif') center center no-repeat;
+      background-size: cover;
+      image-rendering: pixelated;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -64,7 +66,7 @@
   <script>
     const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
     const letters = document.querySelectorAll(".symbol");
-    let completedLetters = 0;
+    var completedLetters = 0;
 
     function flicker(el, target, prevSymbol, min = 6, max = 12) {
       let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
