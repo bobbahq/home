@@ -76,8 +76,13 @@
       cursor: move;
     }
 
-    @keyframes driftBackground {
-      0%   { background-position: 50% 50%; }
+    @keyframes panRoom {
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(-200px, -100px); }
+  50%  { transform: translate(-300px, -200px); }
+  75%  { transform: translate(-100px, -50px); }
+  100% { transform: translate(0px, 0px); }
+}
       10%  { background-position: 60% 40%; }
       20%  { background-position: 40% 60%; }
       30%  { background-position: 65% 55%; }
@@ -101,6 +106,27 @@
       <span class="symbol" data-char="a">a</span>
     </div>
     <div class="fm-tiny">FM</div>
+  </div>
+
+  <div class="lang-toggle">
+    <button onclick="setLang('en')">eng</button>
+    <button onclick="setLang('es')">esp</button>
+  </div>
+
+  <div id="exploreSticker" class="floating-sticker" style="width: 240px; height: 100px; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);">
+    <div id="exploreDrag" style="position:absolute; top: -0.4rem; right: 0.3rem; z-index: 3; padding:0.4rem; font-family:'Press Start 2P', monospace; font-size: 1rem; display: flex; gap: 0.05rem; align-items: center; justify-content: center; height: 2.6rem; cursor: move;">
+      <span style="color: #ff605c;">•</span>
+      <span style="color: #ffbd44;">•</span>
+      <span style="color: #00ca56;">•</span>
+    </div>
+    <div style="position: absolute; width: 1280px; height: 914px; z-index: 1; animation: panRoom 20s infinite linear alternate;">
+  <img src="room_pov.jpg" style="width: 100%; height: 100%; object-fit: none; transform: translate(0px, 0px); image-rendering: pixelated;" />
+</div>
+    <a href="https://bobba.fm/rooms" target="_blank" style="position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-family: 'VT323', monospace; font-size: 1.1rem; color: white; padding: 0.4rem;">
+      <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
+        explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
+      </span>
+    </a>
   </div>
 
   <script>
@@ -146,28 +172,7 @@
     }
 
     animate();
-  </script>
 
-  <div class="lang-toggle">
-    <button onclick="setLang('en')">eng</button>
-    <button onclick="setLang('es')">esp</button>
-  </div>
-
-  <div id="exploreSticker" class="floating-sticker" style="width: 240px; height: 100px; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); position: absolute;">
-    <div id="exploreDrag" style="position:absolute; top: -0.4rem; right: 0.3rem; z-index: 3; padding:0.4rem; font-family:'Press Start 2P', monospace; font-size: 1rem; display: flex; gap: 0.05rem; align-items: center; justify-content: center; height: 2.6rem; cursor: move;">
-      <span style="color: #ff605c;">•</span>
-      <span style="color: #ffbd44;">•</span>
-      <span style="color: #00ca56;">•</span>
-    </div>
-    <div style="position: absolute; top: -400px; left: -520px; width: 1280px; height: 914px; background: url('room_pov.jpg') no-repeat; background-size: auto; animation: driftBackground 15s infinite linear; z-index: 1;"></div>
-    <a href="https://bobba.fm/rooms" target="_blank" style="position: relative; z-index: 2; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; font-family: 'VT323', monospace; font-size: 1.1rem; color: white; padding: 0.4rem;">
-      <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
-        explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
-      </span>
-    </a>
-  </div>
-
-  <script>
     function setLang(lang) {
       const label = document.getElementById("exploreLabel");
       if (lang === 'es') {
@@ -176,6 +181,92 @@
         label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
       }
     }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const sticker = document.getElementById('exploreSticker');
+      const exploreDrag = document.getElementById('exploreDrag');
+      const margin = window.innerWidth < 600 ? 20 : 80;
+      let x, y;
+      const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
+      let attempts = 0;
+      do {
+        x = Math.random() * (window.innerWidth - 240 - margin * 2) + margin;
+        y = Math.random() * (window.innerHeight - 120 - margin * 2) + margin;
+        attempts++;
+        if (attempts > 50) break;
+      } while (
+        x + 160 > logoBox.left - 20 &&
+        x < logoBox.right + 20 &&
+        y + 100 > logoBox.top - 20 &&
+        y < logoBox.bottom + 20
+      );
+
+      const initialAngle = (Math.random() * 20 - 10).toFixed(2);
+      sticker.style.left = `${x}px`;
+      sticker.style.top = `${y}px`;
+      sticker.style.transform = `rotate(${initialAngle}deg)`;
+
+      let isDragging = false;
+      let offsetX = 0, offsetY = 0;
+
+      exploreDrag.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        offsetX = e.clientX - sticker.offsetLeft;
+        offsetY = e.clientY - sticker.offsetTop;
+        e.preventDefault();
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - offsetX;
+        const dy = e.clientY - offsetY;
+        sticker.style.left = `${dx}px`;
+        sticker.style.top = `${dy}px`;
+        const swing = (dx - x) * 0.02;
+        sticker.style.transform = `rotate(${swing}deg)`;
+      });
+
+      document.addEventListener('mouseup', () => {
+        isDragging = false;
+        sticker.style.transition = 'transform 0.4s ease-out';
+        sticker.style.transform = `rotate(${initialAngle}deg) scale(1.01)`;
+        setTimeout(() => {
+          sticker.style.transform = `rotate(${initialAngle}deg)`;
+          sticker.style.transition = '';
+        }, 250);
+      });
+
+      // Touch support
+      exploreDrag.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        const touch = e.touches[0];
+        offsetX = touch.clientX - sticker.getBoundingClientRect().left;
+        offsetY = touch.clientY - sticker.getBoundingClientRect().top;
+        e.preventDefault();
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        const touch = e.touches[0];
+        const dx = touch.clientX - offsetX;
+        const dy = touch.clientY - offsetY;
+        sticker.style.left = `${dx}px`;
+        sticker.style.top = `${dy}px`;
+        const swing = (dx - x) * 0.05;
+        sticker.style.transform = `rotate(${swing}deg)`;
+        e.preventDefault();
+      });
+
+      document.addEventListener('touchend', () => {
+        isDragging = false;
+        sticker.style.transition = 'transform 0.4s ease-out';
+        sticker.style.transform += ' scale(1.03)';
+        setTimeout(() => {
+          sticker.style.transform = sticker.style.transform.replace(/scale\(.*?\)/, '').trim();
+          sticker.style.transition = '';
+        }, 250);
+      });
+    });
   </script>
 </body>
 </html>
