@@ -152,17 +152,23 @@
   <span style="color: #ffbd44;">•</span>
   <span style="color: #00ca56;">•</span>
 </div>
-  <a href="https://bobba.fm/rooms" target="_blank">
-    <img id="exploreImg" src="explore_rooms_en.gif" alt="explore rooms">
-  </a>
+  <a href="https://bobba.fm/rooms" target="_blank" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; font-family: sans-serif; font-size: 0.75rem; color: white;">
+  <img src="room_icon.gif" alt="room icon" style="width: 32px; height: auto; margin-bottom: 0.4rem;" />
+  <span id="exploreLabel" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
+    explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />
+  </span>
+</a>
 </div>
 
   <script>
     function setLang(lang) {
-      const img = document.getElementById("exploreImg");
-      if (lang === 'es') {
-        img.src = 'explore_rooms_es.gif';
-      } else {
+  const label = document.getElementById("exploreLabel");
+  if (lang === 'es') {
+    label.innerHTML = 'explorar salas <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
+  } else {
+    label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
+  }
+} else {
         img.src = 'explore_rooms_en.gif';
       }
     }
@@ -185,11 +191,11 @@
     y < logoBox.bottom + 20
   );
 
-  const angle = (Math.random() * 20 - 10).toFixed(2);
+  const initialAngle = (Math.random() * 20 - 10).toFixed(2);
 
   sticker.style.left = `${x}px`;
   sticker.style.top = `${y}px`;
-  sticker.style.transform = `rotate(${angle}deg)`;
+  sticker.style.transform = `rotate(${initialAngle}deg)`;
 
   let isDragging = false;
   let offsetX = 0, offsetY = 0;
@@ -214,9 +220,9 @@
   document.addEventListener('mouseup', () => {
     isDragging = false;
     sticker.style.transition = 'transform 0.4s ease-out';
-    sticker.style.transform += ' scale(1.03)';
+    sticker.style.transform = `rotate(${initialAngle}deg) scale(1.01)`;
     setTimeout(() => {
-      sticker.style.transform = sticker.style.transform.replace(/scale\(.*?\)/, '').trim();
+      sticker.style.transform = `rotate(${initialAngle}deg)`;
       sticker.style.transition = '';
     }, 250);
   });
