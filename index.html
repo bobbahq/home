@@ -169,9 +169,23 @@
 
     window.addEventListener('DOMContentLoaded', () => {
   const sticker = document.getElementById('exploreSticker');
-  const x = Math.random() * (window.innerWidth - 160);
-  const y = Math.random() * (window.innerHeight - 100);
-  const angle = (Math.random() * 6 - 3).toFixed(2);
+    const margin = 80;
+  let x, y;
+  const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
+  let attempts = 0;
+  do {
+    x = Math.random() * (window.innerWidth - 160 - margin * 2) + margin;
+    y = Math.random() * (window.innerHeight - 100 - margin * 2) + margin;
+    attempts++;
+    if (attempts > 50) break; // fallback in case of infinite loop
+  } while (
+    x + 160 > logoBox.left - 20 &&
+    x < logoBox.right + 20 &&
+    y + 100 > logoBox.top - 20 &&
+    y < logoBox.bottom + 20
+  );
+
+  const angle = (Math.random() * 20 - 10).toFixed(2);
 
   sticker.style.left = `${x}px`;
   sticker.style.top = `${y}px`;
