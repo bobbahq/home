@@ -210,6 +210,29 @@
   document.addEventListener('mouseup', () => {
     isDragging = false;
   });
+
+  // Touch support for mobile
+  const exploreDrag = document.getElementById('exploreDrag');
+
+  exploreDrag.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    const touch = e.touches[0];
+    offsetX = touch.clientX - sticker.getBoundingClientRect().left;
+    offsetY = touch.clientY - sticker.getBoundingClientRect().top;
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const touch = e.touches[0];
+    sticker.style.left = `${touch.clientX - offsetX}px`;
+    sticker.style.top = `${touch.clientY - offsetY}px`;
+    e.preventDefault();
+  });
+
+  document.addEventListener('touchend', () => {
+    isDragging = false;
+  });
 });
   </script>
 
