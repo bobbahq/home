@@ -78,6 +78,11 @@
       transition: transform 0.3s ease;
       cursor: move;
     }
+      @keyframes rainbowFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body>
@@ -141,11 +146,11 @@
     <button onclick="setLang('es')">esp</button>
   </div>
 
-  <div id="exploreSticker" class="floating-sticker">
-    <a href="https://bobba.fm/rooms" target="_blank">
-      <div style="background:black; border-radius:12px; padding:0.5rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.8);">
-        <img id="exploreImg" src="explore_rooms_en.gif" alt="explore rooms">
-      </div>
+  <div id="exploreSticker" class="floating-sticker" style="background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet); background-size: 1400% 1400%; animation: rainbowFlow 10s ease infinite; border-radius: 12px; padding: 0.5rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.8);">
+  <a href="https://bobba.fm/rooms" target="_blank">
+    <img id="exploreImg" src="explore_rooms_en.gif" alt="explore rooms">
+  </a>
+</div>
     </a>
   </div>
 
