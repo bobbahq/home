@@ -169,7 +169,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
   const sticker = document.getElementById('exploreSticker');
-    const margin = 80;
+    const margin = window.innerWidth < 600 ? 30 : 80;
   let x, y;
   const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
   let attempts = 0;
