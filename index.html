@@ -72,6 +72,12 @@
       z-index: 5;
       transition: transform 0.3s ease;
     }
+      .floating-sticker {
+      position: absolute;
+      z-index: 5;
+      transition: transform 0.3s ease;
+      cursor: move;
+    }
   </style>
 </head>
 <body>
@@ -135,9 +141,13 @@
     <button onclick="setLang('es')">esp</button>
   </div>
 
-  <a id="exploreSticker" class="floating-sticker" href="https://bobba.fm/rooms" target="_blank">
-    <img id="exploreImg" src="explore_rooms_en.gif" alt="explore rooms">
-  </a>
+  <div id="exploreSticker" class="floating-sticker">
+    <a href="https://bobba.fm/rooms" target="_blank">
+      <div style="background:black; border-radius:12px; padding:0.5rem; box-shadow: 3px 3px 0 rgba(0,0,0,0.8);">
+        <img id="exploreImg" src="explore_rooms_en.gif" alt="explore rooms">
+      </div>
+    </a>
+  </div>
 
   <script>
     function setLang(lang) {
@@ -150,15 +160,34 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      const sticker = document.getElementById('exploreSticker');
-      const x = Math.random() * (window.innerWidth - 120);
-      const y = Math.random() * (window.innerHeight - 80);
-      const angle = (Math.random() * 6 - 3).toFixed(2); // -3 to +3 degrees
+  const sticker = document.getElementById('exploreSticker');
+  const x = Math.random() * (window.innerWidth - 160);
+  const y = Math.random() * (window.innerHeight - 100);
+  const angle = (Math.random() * 6 - 3).toFixed(2);
 
-      sticker.style.left = `${x}px`;
-      sticker.style.top = `${y}px`;
-      sticker.style.transform = `rotate(${angle}deg)`;
-    });
+  sticker.style.left = `${x}px`;
+  sticker.style.top = `${y}px`;
+  sticker.style.transform = `rotate(${angle}deg)`;
+
+  let isDragging = false;
+  let offsetX = 0, offsetY = 0;
+
+  sticker.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    offsetX = e.clientX - sticker.getBoundingClientRect().left;
+    offsetY = e.clientY - sticker.getBoundingClientRect().top;
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    sticker.style.left = `${e.clientX - offsetX}px`;
+    sticker.style.top = `${e.clientY - offsetY}px`;
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+});
   </script>
 
 </body>
