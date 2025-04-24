@@ -1,28 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="theme-color" content="#000000">
   <meta charset="UTF-8" />
-  <title>bobba FM – it's on</title>
+  <title>bobba.fm</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-
-    .vt323-regular {
-      font-family: 'VT323', monospace;
-      font-weight: 400;
-      font-style: normal;
-    }
     body {
       margin: 0;
       background: url('background.gif') center center no-repeat;
       background-size: cover;
       image-rendering: pixelated;
-      font-family: sans-serif;
-      min-height: 100vh;
-      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 100vh;
       font-family: sans-serif;
     }
@@ -50,56 +42,16 @@
       position: absolute;
       top: -0.1rem;
       right: -2rem;
-      font-size: 1.6rem;
+      font-size: 1.1rem;
       font-weight: 900;
       font-family: Arial, sans-serif;
       color: black;
       line-height: 1;
     }
-
-    .lang-toggle {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      display: flex;
-      gap: 0.5rem;
-      z-index: 10;
-    }
-
-    .lang-toggle button {
-      background: black;
-      color: white;
-      border: 2px solid white;
-      padding: 0.3rem 0.8rem;
-      cursor: pointer;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 0.75rem;
-    }
-
-    .floating-sticker {
-      position: absolute;
-      z-index: 5;
-      transition: transform 0.3s ease;
-      cursor: move;
-    }
-
-    @keyframes panRoom {
-      0%   { transform: translate(-560px, -414px); }
-      25%  { transform: translate(-480px, -330px); }
-      50%  { transform: translate(-640px, -490px); }
-      75%  { transform: translate(-520px, -400px); }
-      100% { transform: translate(-560px, -414px); }
-    }
-      .logo-center {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-12deg);
-    }
   </style>
 </head>
 <body>
-  <div class="box-wrapper logo-center" style="transform: translate(-50%, -50%) rotate(-12deg);">
+  <div class="box-wrapper">
     <div class="symbol-container">
       <span class="symbol" data-char="b">b</span>
       <span class="symbol" data-char="o">o</span>
@@ -110,31 +62,10 @@
     <div class="fm-tiny">FM</div>
   </div>
 
-  <div class="lang-toggle">
-    <button onclick="setLang('en')">eng</button>
-    <button onclick="setLang('es')">esp</button>
-  </div>
-
-  <div id="exploreSticker" class="floating-sticker" style="width: 240px; height: 100px; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);">
-    <div id="exploreDrag" style="position:absolute; top: -0.4rem; left: 0.3rem; z-index: 3; padding:0.4rem; font-family:'Press Start 2P', monospace; font-size: 1rem; display: flex; gap: 0.05rem; align-items: center; justify-content: center; height: 2.6rem; cursor: move;">
-      <span style="color: #ff605c;">•</span>
-      <span style="color: #ffbd44;">•</span>
-      <span style="color: #00ca56;">•</span>
-    </div>
-    <div style="position: absolute; width: 1360px; height: 928px; z-index: 1; pointer-events: none; animation: panRoom 20s infinite linear alternate;">
-  <img src="room_pov.png" style="width: 1360px; height: 928px; object-fit: none; transform: translate(0px, 0px); image-rendering: pixelated; pointer-events: none;" />
-</div>
-    <a href="https://bobba.fm/rooms" target="_blank" class="vt323-regular" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 2; display: flex; align-items: center; justify-content: center; gap: 0.5rem; text-decoration: none; font-size: 1.6rem; color: white;">
-      <span id="exploreLabel" class="vt323-regular" style="text-decoration: underline; display: flex; align-items: center; gap: 0.3rem;">
-        explore rooms 
-      </span>
-    </a>
-  </div>
-
   <script>
     const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
     const letters = document.querySelectorAll(".symbol");
-    var completedLetters = 0;
+    let completedLetters = 0;
 
     function flicker(el, target, prevSymbol, min = 6, max = 12) {
       let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -174,75 +105,6 @@
     }
 
     animate();
-
-    function setLang(lang) {
-      const label = document.getElementById("exploreLabel");
-      if (lang === 'es') {
-        label.innerHTML = 'explorar salas ';
-      } else {
-        label.innerHTML = 'explore rooms <img src="flashy_arrow.gif" alt=">" style="width: 12px; height: auto;" />';
-      }
-    }
-      const sticker = document.getElementById('exploreSticker');
-    const exploreDrag = document.getElementById('exploreDrag');
-    const margin = 60;
-    const logoBox = document.querySelector('.box-wrapper').getBoundingClientRect();
-
-    let x, y;
-    let attempts = 0;
-    do {
-      x = Math.random() * (window.innerWidth - 240 - margin * 2) + margin;
-      y = Math.random() * (window.innerHeight - 100 - margin * 2) + margin;
-      attempts++;
-      if (attempts > 50) break;
-    } while (
-      x + 240 > logoBox.left - 20 &&
-      x < logoBox.right + 20 &&
-      y + 100 > logoBox.top - 20 &&
-      y < logoBox.bottom + 20
-    );
-
-    sticker.style.left = `${x}px`;
-    sticker.style.top = `${y}px`;
-
-    let isDragging = false;
-    let offsetX = 0, offsetY = 0;
-
-    exploreDrag.addEventListener('mousedown', (e) => {
-      isDragging = true;
-      offsetX = e.clientX - sticker.offsetLeft;
-      offsetY = e.clientY - sticker.offsetTop;
-      e.preventDefault();
-    });
-
-    document.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      sticker.style.left = `${e.clientX - offsetX}px`;
-      sticker.style.top = `${e.clientY - offsetY}px`;
-    });
-
-    document.addEventListener('mouseup', () => {
-      isDragging = false;
-    });
-
-    exploreDrag.addEventListener('touchstart', (e) => {
-      isDragging = true;
-      const touch = e.touches[0];
-      offsetX = touch.clientX - sticker.offsetLeft;
-      offsetY = touch.clientY - sticker.offsetTop;
-      e.preventDefault();
-    });
-
-    document.addEventListener('touchmove', (e) => {
-      if (!isDragging) return;
-      const touch = e.touches[0];
-      sticker.style.left = `${touch.clientX - offsetX}px`;
-      sticker.style.top = `${touch.clientY - offsetY}px`;
-    });
-
-    document.addEventListener('touchend', () => {
-      isDragging = false;
-    });
   </script>
 </body>
 </html>
