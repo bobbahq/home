@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>bobba.fm</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <style>
     html, body {
@@ -15,7 +15,6 @@
       background: white;
       font-family: 'VT323', monospace;
     }
-
     #logo-container {
       position: fixed;
       top: 50%;
@@ -24,32 +23,115 @@
       z-index: 0;
       pointer-events: none;
     }
-
-    .widget {
+    .box-wrapper {
+      position: relative;
+      display: inline-block;
+      background: black;
+      transform: rotate(-12deg);
+      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
+    }
+    .symbol-container {
+      display: flex;
+      font-size: 4rem;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+    }
+    .symbol {
+      display: inline-block;
+    }
+    .fm-tiny {
       position: absolute;
+      top: -0.1rem;
+      right: -2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      font-family: Arial, sans-serif;
+      color: black;
+      line-height: 1;
+    }
+    .widget, .mac-widget {
+      position: absolute;
+      z-index: 10;
+      cursor: move;
+      font-weight: normal;
+    }
+    .widget {
       background-color: #0000FF;
       color: white;
       padding: 0.6rem;
       width: 200px;
-      transform: rotate(calc((Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10) * 1deg));
-      z-index: 10;
-      cursor: move;
       font-size: 1rem;
     }
-
     .widget .info-text {
       color: white;
       margin-bottom: 0.75rem;
     }
-
     .widget .info-link {
       color: lightgray;
     }
-
+    .mac-widget {
+      background: #c0c0c0;
+      border: 2px solid #4f4f4f;
+      width: 200px;
+      height: 160px;
+      font-size: 1rem;
+      box-shadow: inset -2px -2px 0 #999, inset 2px 2px 0 #fff;
+      image-rendering: pixelated;
+      display: flex;
+      flex-direction: column;
+    }
+    .mac-header {
+      background: #000080;
+      color: white;
+      padding: 2px 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.2rem;
+      font-family: 'VT323', monospace;
+      font-weight: normal;
+    }
+    .mac-dot {
+      width: 8px;
+      height: 8px;
+      background: white;
+      border: 1px solid black;
+    }
+    .mac-body {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      color: #fff;
+      overflow: hidden;
+    }
+    .carousel-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: opacity 1s ease;
+      opacity: 0;
+    }
+    .carousel-text.active {
+      opacity: 1;
+    }
+    .mac-footer {
+      padding: 4px;
+      background: #e0e0e0;
+      border-top: 1px solid #999;
+      text-align: center;
+      font-size: 1rem;
+      color: #000;
+    }
     .blinking {
       animation: blink 1s steps(2, start) infinite;
     }
-
     @keyframes blink {
       to {
         visibility: hidden;
@@ -59,7 +141,6 @@
 </head>
 <body>
   <div id="logo-container">
-    <!-- BEGIN LOGO FROM PROVIDED FILE -->
     <div class="box-wrapper">
       <div class="symbol-container">
         <span class="symbol" data-char="b">b</span>
@@ -70,9 +151,7 @@
       </div>
       <div class="fm-tiny">FM</div>
     </div>
-    <!-- END LOGO FROM PROVIDED FILE -->
   </div>
-
   <div class="widget" id="widget1">
     <div class="info-text">
       bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.
@@ -81,127 +160,73 @@
       click HERE to know more<span class="blinking">_</span>
     </div>
   </div>
-
-  <style>
-    .box-wrapper {
-      position: relative;
-      display: inline-block;
-      background: black;
-      transform: rotate(-12deg);
-      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
-    }
-
-    .symbol-container {
-      display: flex;
-      font-size: 4rem;
-      font-family: 'Press Start 2P', monospace;
-      color: white;
-    }
-
-    .symbol {
-      display: inline-block;
-    }
-
-    .fm-tiny {
-      position: absolute;
-      top: -0.1rem;
-      right: -2rem;
-      font-size: 1.1rem;
-      font-weight: 900;
-      font-family: Arial, sans-serif;
-      color: black;
-      line-height: 1;
-    }
-  </style>
-
+  <div class="mac-widget" id="roomsWidget">
+    <div class="mac-header">
+      <div class="mac-dot"></div>
+      <div class="mac-dot"></div>
+      <div class="mac-dot"></div>
+      <span style="margin-left: auto;">rooms</span>
+    </div>
+    <div class="mac-body">
+      <div class="carousel-text active" style="background:#8b0000">retro cafe</div>
+      <div class="carousel-text" style="background:#228b22">forest temple</div>
+      <div class="carousel-text" style="background:#4682b4">aqua lounge</div>
+      <div class="carousel-text" style="background:#8b008b">dream palace</div>
+    </div>
+    <div class="mac-footer">explore more rooms</div>
+  </div>
   <script>
-    const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
-    const letters = document.querySelectorAll(".symbol");
-    let globalCompletedLetters = 0;
+    document.addEventListener('DOMContentLoaded', () => {
+      const widgets = [
+        { id: 'widget1', width: 200, height: 120 },
+        { id: 'roomsWidget', width: 200, height: 160 },
+      ];
 
-    function flicker(el, target, prevSymbol, min = 6, max = 12) {
-      let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count >= cycles) {
-          el.textContent = target;
-          clearInterval(interval);
-          globalCompletedLetters++;
-          if (globalCompletedLetters === letters.length) {
-            setTimeout(animate, 6000);
+      widgets.forEach(({ id, width, height }) => {
+        const widget = document.getElementById(id);
+        if (!widget) return;
+
+        widget.style.left = Math.random() * (window.innerWidth - width) + 'px';
+        widget.style.top = Math.random() * (window.innerHeight - height) + 'px';
+        widget.style.transform = `rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
+
+        widget.addEventListener('mousedown', function (event) {
+          event.preventDefault();
+          const shiftX = event.clientX - widget.getBoundingClientRect().left;
+          const shiftY = event.clientY - widget.getBoundingClientRect().top;
+
+          function moveAt(pageX, pageY) {
+            widget.style.left = pageX - shiftX + 'px';
+            widget.style.top = pageY - shiftY + 'px';
           }
-        } else {
-          let prev = prevSymbol();
-          let availableSymbols = symbols.filter(s => s !== prev && s !== undefined && s !== null);
-          let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)] || target;
-          el.textContent = newSymbol;
-          count++;
-        }
-      }, 240 + Math.random() * 100);
-    }
 
-    function shuffle(array) {
-      return array.map(v => ({ v, s: Math.random() }))
-                  .sort((a, b) => a.s - b.s)
-                  .map(obj => obj.v);
-    }
+          function onMouseMove(event) {
+            moveAt(event.pageX, event.pageY);
+          }
 
-    function animate() {
-      globalCompletedLetters = 0;
-      const shuffled = shuffle(Array.from(letters));
-      shuffled.forEach((el, i) => {
-        setTimeout(() => flicker(el, el.dataset.char, () => {
-          let prev = el.previousElementSibling;
-          return prev && prev.classList.contains('symbol') ? prev.textContent : '';
-        }), i * 200 + Math.random() * 150);
+          document.addEventListener('mousemove', onMouseMove);
+
+          function onMouseUp() {
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+          }
+
+          document.addEventListener('mouseup', onMouseUp);
+        });
+
+        widget.ondragstart = () => false;
       });
-    }
 
-    animate();
-
-    // Widget Positioning + Draggability
-    const widget = document.getElementById('widget1');
-    function randomPosWithin(bounds, size) {
-      return Math.floor(Math.random() * (bounds - size));
-    }
-
-    function initWidgetPosition() {
-      const { innerWidth, innerHeight } = window;
-      const widgetWidth = 200;
-      const widgetHeight = 120;
-      let x = randomPosWithin(innerWidth, widgetWidth);
-      let y = randomPosWithin(innerHeight, widgetHeight);
-      widget.style.left = `${x}px`;
-      widget.style.top = `${y}px`;
-      widget.style.transform += ` rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
-    }
-
-    initWidgetPosition();
-
-    widget.onmousedown = function (event) {
-      let shiftX = event.clientX - widget.getBoundingClientRect().left;
-      let shiftY = event.clientY - widget.getBoundingClientRect().top;
-
-      function moveAt(pageX, pageY) {
-        widget.style.left = pageX - shiftX + 'px';
-        widget.style.top = pageY - shiftY + 'px';
+      const carouselTexts = document.querySelectorAll('.carousel-text');
+      let currentIndex = 0;
+      if (carouselTexts.length > 0) {
+        setInterval(() => {
+          carouselTexts[currentIndex].classList.remove('active');
+          currentIndex = (currentIndex + 1) % carouselTexts.length;
+          carouselTexts[currentIndex].classList.add('active');
+        }, 3000);
       }
-
-      function onMouseMove(event) {
-        moveAt(event.pageX, event.pageY);
-      }
-
-      document.addEventListener('mousemove', onMouseMove);
-
-      widget.onmouseup = function () {
-        document.removeEventListener('mousemove', onMouseMove);
-        widget.onmouseup = null;
-      };
-    };
-
-    widget.ondragstart = function () {
-      return false;
-    };
+    });
   </script>
 </body>
 </html>
