@@ -3,55 +3,105 @@
 <head>
   <meta charset="UTF-8" />
   <title>bobba.fm</title>
-  <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Jersey+15&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <style>
-    body {
+    html, body {
       margin: 0;
-      background: white;
-      height: 100vh;
+      padding: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      position: relative;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      background: white;
+      font-family: 'VT323', monospace;
     }
-    .box-wrapper {
+
+    #logo-container {
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(-12deg);
-      background: black;
-      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
+      transform: translate(-50%, -50%);
       z-index: 0;
       pointer-events: none;
-    }an
+    }
+
+    .widget {
+      position: absolute;
+      background-color: #0000FF;
+      color: white;
+      padding: 0.6rem;
+      width: 200px;
+      transform: rotate(calc((Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10) * 1deg));
+      z-index: 10;
+      cursor: move;
+      font-size: 1rem;
+    }
+
+    .widget .info-text {
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+
+    .widget .info-link {
+      color: lightgray;
+    }
+
+    .blinking {
+      animation: blink 1s steps(2, start) infinite;
+    }
+
+    @keyframes blink {
+      to {
+        visibility: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="logo-container">
+    <!-- BEGIN LOGO FROM PROVIDED FILE -->
+    <div class="box-wrapper">
+      <div class="symbol-container">
+        <span class="symbol" data-char="b">b</span>
+        <span class="symbol" data-char="o">o</span>
+        <span class="symbol" data-char="b">b</span>
+        <span class="symbol" data-char="b">b</span>
+        <span class="symbol" data-char="a">a</span>
+      </div>
+      <div class="fm-tiny">FM</div>
+    </div>
+    <!-- END LOGO FROM PROVIDED FILE -->
+  </div>
+
+  <div class="widget" id="widget1">
+    <div class="info-text">
+      bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.
+    </div>
+    <div class="info-link">
+      click HERE to know more<span class="blinking">_</span>
+    </div>
+  </div>
+
+  <style>
+    .box-wrapper {
+      position: relative;
+      display: inline-block;
+      background: black;
+      transform: rotate(-12deg);
+      padding: 1.2rem 0.8rem 0.8rem 1.4rem;
+    }
+
     .symbol-container {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  font-size: clamp(1.5rem, 6vw, 4rem);
-  font-family: 'Press Start 2P', monospace;
-  color: white;
-  line-height: 1;
-  background: transparent;
-}
+      display: flex;
+      font-size: 4rem;
+      font-family: 'Press Start 2P', monospace;
+      color: white;
+    }
+
     .symbol {
-  display: inline-block;
-  line-height: 1;
-  background-color: black;
-  color: white;
-  padding: 0 4px;
-  box-sizing: border-box;
-  font-family: 'Press Start 2P', monospace;
-  font-size: clamp(1.5rem, 6vw, 4rem);
-  width: auto;
-  text-align: center;
-  overflow: hidden;
-}
+      display: inline-block;
+    }
+
     .fm-tiny {
       position: absolute;
       top: -0.1rem;
@@ -62,173 +112,96 @@
       color: black;
       line-height: 1;
     }
-    .widget {
-      position: absolute;
-      width: 240px;
-      height: 200px;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-      background: linear-gradient(to bottom, #dcdcdc 0%, #e5e5e5 20%, #f0f0f0 40%, #e5e5e5 60%, #dcdcdc 100%);
-      border: 1px solid #aaa;
-      font-family: 'VT323', monospace;
-      overflow: hidden;
-      z-index: 1;
-    }
-    .titlebar {
-      background: linear-gradient(to bottom, #f0f0f0 0%, #e6e6e6 50%, #dcdcdc 100%);
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-bottom: 1px solid #aaa;
-      cursor: grab;
-      position: relative;
-    }
-    .mac-dots {
-      position: absolute;
-      left: 8px;
-      top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Jersey 15', cursive;
-      font-size: 38px;
-      line-height: 1;
-    }
-    .aqua-title {
-      font-size: 16px;
-      font-weight: normal;
-      text-transform: none;
-    }
-    .content {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      height: calc(100% - 32px);
-      text-align: center;
-      font-size: 16px;
-      margin-top: 0;
-    }
-    .room-cover {
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-    .room-name {
-      background: black;
-      color: white;
-      padding: 2px 6px;
-      margin: 8px;
-      border-radius: 3px;
-      font-size: 16px;
-    }
-    .explore-link {
-      text-decoration: underline;
-      color: blue;
-      padding: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    #aboutWidget {
-      background: #0000FF;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 4px 16px 16px 16px;
-      font-family: 'VT323', monospace;
-    }
-    .blinking-cursor {
-      animation: blink 1.2s steps(1) infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
   </style>
-</head>
-<body>
-  <div class="box-wrapper">
-    <div class="symbol-container">
-      <span class="symbol" data-char="b">b</span>
-      <span class="symbol" data-char="o">o</span>
-      <span class="symbol" data-char="b">b</span>
-      <span class="symbol" data-char="b">b</span>
-      <span class="symbol" data-char="a">a</span>
-    </div>
-    <div class="fm-tiny">FM</div>
-  </div>
-
-  <div class="widget" id="roomsWidget" style="top:5%; left:5%;">
-    <div class="titlebar" id="roomsDrag">
-      <div class="mac-dots">
-        <span style="color:#ff5f57;">•</span>
-        <span style="color:#ffbd2e;">•</span>
-        <span style="color:#28c840;">•</span>
-      </div>
-      <div class="aqua-title">Rooms</div>
-    </div>
-    <div class="content">
-      <div class="room-cover" id="roomCover">
-        <div class="room-name" id="roomName">Loading...</div>
-      </div>
-      <div class="explore-link-container" style="width: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 8px;">
-        <a class="explore-link" href="https://bobba.fm/rooms" target="_blank">Explore more rooms</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="widget" id="aboutWidget" style="top:30%; left:40%; width:200px; height:auto; padding:16px; background: #0000FF; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; font-family: 'VT323', monospace; color: white;">
-  <div class="content" style="font-size:14px; text-align:left; line-height:1.4; max-width:200px;">
-    bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.<br><br><span style="white-space: nowrap;">click HERE to know more<span class="blinking-cursor">_</span></span>
-  </div>
-</div>
-  </div>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const symbols = ['@','#','$','%','!','&','*','+','?','>','¢'];
-      const letters = document.querySelectorAll('.symbol');
-      let completedLetters = 0;
-      function flicker(el,target,prevSymbol,min=6,max=12){
-        let cycles=Math.floor(Math.random()*(max-min+1))+min, count=0;
-        const iv=setInterval(()=>{
-          if(count>=cycles){ el.textContent=target; clearInterval(iv); completedLetters++; if(completedLetters===letters.length) setTimeout(animate,6000); }
-          else{ let avail=symbols.filter(s=>s!==prevSymbol()); el.textContent=avail[Math.floor(Math.random()*avail.length)]; count++; }
-        },240+Math.random()*100);
-      }
-      function shuffle(a){return a.map(v=>({v,s:Math.random()})).sort((x,y)=>x.s-y.s).map(o=>o.v);}
-      function animate(){ completedLetters=0; const sh=shuffle(Array.from(letters)); sh.forEach((el,i)=>setTimeout(()=>flicker(el,el.dataset.char,()=>{let p=el.previousElementSibling; return p?p.textContent:'';}),i*200+Math.random()*150)); }
-      if (letters.length > 0) animate();
+    const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
+    const letters = document.querySelectorAll(".symbol");
+    let globalCompletedLetters = 0;
 
-      const roomList=[{name:"Tom's Dungeon",color:"#d26"},{name:"Pixel Paradise",color:"#2ad"},{name:"Club Neon",color:"#ff0"},{name:"Cyber Bathhouse",color:"#0cf"},{name:"Garden of Bobba",color:"#7f7"},{name:"Glitch Room",color:"#f0f"}];
-      const roomCover=document.getElementById('roomCover');
-      const roomName=document.getElementById('roomName');
-      if (roomCover && roomName) {
-        let idx=0;
-        function showRoom(i){ roomCover.style.backgroundColor=roomList[i].color; roomName.textContent=roomList[i].name; }
-        showRoom(idx);
-        setInterval(()=>{ idx=(idx+1)%roomList.length; showRoom(idx); },6000);
+    function flicker(el, target, prevSymbol, min = 6, max = 12) {
+      let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
+      let count = 0;
+      const interval = setInterval(() => {
+        if (count >= cycles) {
+          el.textContent = target;
+          clearInterval(interval);
+          globalCompletedLetters++;
+          if (globalCompletedLetters === letters.length) {
+            setTimeout(animate, 6000);
+          }
+        } else {
+          let prev = prevSymbol();
+          let availableSymbols = symbols.filter(s => s !== prev && s !== undefined && s !== null);
+          let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)] || target;
+          el.textContent = newSymbol;
+          count++;
+        }
+      }, 240 + Math.random() * 100);
+    }
+
+    function shuffle(array) {
+      return array.map(v => ({ v, s: Math.random() }))
+                  .sort((a, b) => a.s - b.s)
+                  .map(obj => obj.v);
+    }
+
+    function animate() {
+      globalCompletedLetters = 0;
+      const shuffled = shuffle(Array.from(letters));
+      shuffled.forEach((el, i) => {
+        setTimeout(() => flicker(el, el.dataset.char, () => {
+          let prev = el.previousElementSibling;
+          return prev && prev.classList.contains('symbol') ? prev.textContent : '';
+        }), i * 200 + Math.random() * 150);
+      });
+    }
+
+    animate();
+
+    // Widget Positioning + Draggability
+    const widget = document.getElementById('widget1');
+    function randomPosWithin(bounds, size) {
+      return Math.floor(Math.random() * (bounds - size));
+    }
+
+    function initWidgetPosition() {
+      const { innerWidth, innerHeight } = window;
+      const widgetWidth = 200;
+      const widgetHeight = 120;
+      let x = randomPosWithin(innerWidth, widgetWidth);
+      let y = randomPosWithin(innerHeight, widgetHeight);
+      widget.style.left = `${x}px`;
+      widget.style.top = `${y}px`;
+      widget.style.transform += ` rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
+    }
+
+    initWidgetPosition();
+
+    widget.onmousedown = function (event) {
+      let shiftX = event.clientX - widget.getBoundingClientRect().left;
+      let shiftY = event.clientY - widget.getBoundingClientRect().top;
+
+      function moveAt(pageX, pageY) {
+        widget.style.left = pageX - shiftX + 'px';
+        widget.style.top = pageY - shiftY + 'px';
       }
 
-      function makeDraggable(widget,handle){
-        if (!widget || !handle) return;
-        let ox=0,oy=0,down=false;
-        handle.addEventListener('mousedown',e=>{down=true; ox=e.clientX-widget.offsetLeft; oy=e.clientY-widget.offsetTop; widget.style.cursor='grabbing';});
-        document.addEventListener('mouseup',()=>{down=false; handle.style.cursor='grab';});
-        document.addEventListener('mousemove',e=>{ if(!down) return; widget.style.left=(e.clientX-ox)+'px'; widget.style.top=(e.clientY-oy)+'px'; });
+      function onMouseMove(event) {
+        moveAt(event.pageX, event.pageY);
       }
-      makeDraggable(document.getElementById('roomsWidget'),document.getElementById('roomsDrag'));
-      makeDraggable(document.getElementById('aboutWidget'),document.getElementById('aboutDrag'));
-    });
+
+      document.addEventListener('mousemove', onMouseMove);
+
+      widget.onmouseup = function () {
+        document.removeEventListener('mousemove', onMouseMove);
+        widget.onmouseup = null;
+      };
+    };
+
+    widget.ondragstart = function () {
+      return false;
+    };
   </script>
 </body>
 </html>
