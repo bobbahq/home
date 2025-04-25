@@ -61,6 +61,7 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      cursor: move;
     }
 
     .aqua-titlebar {
@@ -71,6 +72,7 @@
       align-items: center;
       justify-content: center;
       border-bottom: 1px solid #aaa;
+      cursor: grab;
     }
 
     .mac-dots {
@@ -152,8 +154,8 @@
     <div class="fm-tiny">FM</div>
   </div>
 
-  <div class="aqua-window">
-    <div class="aqua-titlebar">
+  <div class="aqua-window" id="draggable">
+    <div class="aqua-titlebar" id="drag-handle">
       <div class="mac-dots">
         <span class="red"></span>
         <span class="yellow"></span>
@@ -194,6 +196,31 @@
       index = (index + 1) % rooms.length;
       showRoom(index);
     }, 6000);
+
+    // Dragging functionality
+    const dragItem = document.getElementById("draggable");
+    const dragHandle = document.getElementById("drag-handle");
+    let offsetX = 0;
+    let offsetY = 0;
+    let isDown = false;
+
+    dragHandle.addEventListener("mousedown", function(e) {
+      isDown = true;
+      offsetX = e.clientX - dragItem.offsetLeft;
+      offsetY = e.clientY - dragItem.offsetTop;
+      dragHandle.style.cursor = "grabbing";
+    });
+
+    document.addEventListener("mouseup", function() {
+      isDown = false;
+      dragHandle.style.cursor = "grab";
+    });
+
+    document.addEventListener("mousemove", function(e) {
+      if (!isDown) return;
+      dragItem.style.left = `${e.clientX - offsetX}px`;
+      dragItem.style.top = `${e.clientY - offsetY}px`;
+    });
   </script>
 </body>
 </html>
