@@ -134,22 +134,22 @@
     #aboutWidget {
       background: #0000FF;
       color: white;
-      
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 16px;
+      padding: 4px 16px 16px 16px;
       font-family: 'VT323', monospace;
-    
-  .blinking-cursor {
-  animation: blink 1.2s steps(1) infinite;
-}
-@keyframes blink {
-  50% { opacity: 0; }
-}
-</style>
+    }
+    .blinking-cursor {
+      animation: blink 1.2s steps(1) infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
 </head>
 <body>
   <div class="box-wrapper">
@@ -164,29 +164,28 @@
   </div>
 
   <div class="widget" id="roomsWidget" style="top:5%; left:5%;">
-  <div class="titlebar" id="roomsDrag">
-    <div class="mac-dots">
-      <span style="color:#ff5f57;">•</span>
-      <span style="color:#ffbd2e;">•</span>
-      <span style="color:#28c840;">•</span>
+    <div class="titlebar" id="roomsDrag">
+      <div class="mac-dots">
+        <span style="color:#ff5f57;">•</span>
+        <span style="color:#ffbd2e;">•</span>
+        <span style="color:#28c840;">•</span>
+      </div>
+      <div class="aqua-title">Rooms</div>
     </div>
-    <div class="aqua-title">Rooms</div>
-  </div>
-  <div class="content">
-  <div class="room-cover" id="roomCover">
-    <div class="room-name" id="roomName">Loading...</div>
-  </div>
-<div class="explore-link-container" style="width: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 8px;">
-    <a class="explore-link" href="https://bobba.fm/rooms" target="_blank">Explore more rooms</a>
-  </div>
-</div>
-</div>
+    <div class="content">
+      <div class="room-cover" id="roomCover">
+        <div class="room-name" id="roomName">Loading...</div>
+      </div>
+      <div class="explore-link-container" style="width: 100%; display: flex; justify-content: center; align-items: center; padding-bottom: 8px;">
+        <a class="explore-link" href="https://bobba.fm/rooms" target="_blank">Explore more rooms</a>
+      </div>
+    </div>
   </div>
 
-  <div class="widget" id="aboutWidget" style="top:30%; left:40%; width:200px; height:auto; padding:16px;">
+  <div class="widget" id="aboutWidget" style="top:30%; left:40%; width:200px; height:auto; padding:4px 16px 16px 16px; border: none;">
     <div class="titlebar" id="aboutDrag" style="background: #0000FF; border: none; cursor: grab; padding: 12px 8px;">
-  <div style="font-size: 18px; font-family: 'VT323', monospace; color: white; text-align: center; width: 100%; margin-bottom: 12px;">bobba FM [BETA]</div>
-</div>
+      <div style="font-size: 18px; font-family: 'VT323', monospace; color: white; text-align: center; width: 100%; margin-bottom: 8px;">bobba FM [BETA]</div>
+    </div>
     <div class="content">
       <div style="font-size:14px; text-align:left; line-height:1.4; max-width:200px;">
         bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.<br><br>Click HERE to know more<span class="blinking-cursor">_</span>
