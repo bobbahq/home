@@ -5,26 +5,24 @@
   <title>bobba.fm</title>
   <link rel="icon" type="image/png" href="favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      background: url('background.gif') center center no-repeat;
-      background-size: cover;
-      image-rendering: pixelated;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: white;
       height: 100vh;
       font-family: sans-serif;
+      overflow: hidden;
     }
 
     .box-wrapper {
-      position: relative;
-      display: inline-block;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-12deg);
       background: black;
-      transform: rotate(-12deg);
       padding: 1.2rem 0.8rem 0.8rem 1.4rem;
+      z-index: 0;
     }
 
     .symbol-container {
@@ -48,6 +46,98 @@
       color: black;
       line-height: 1;
     }
+
+    .aqua-window {
+      position: absolute;
+      top: 5%;
+      left: 5%;
+      width: 240px;
+      height: 200px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(to bottom, #e3e3e3, #cfcfcf);
+      border: 1px solid #aaa;
+      font-family: 'VT323', monospace;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .aqua-titlebar {
+      background: linear-gradient(to bottom, #f8f8f8, #dcdcdc);
+      padding: 8px 12px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #aaa;
+    }
+
+    .mac-dots {
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      display: flex;
+      gap: 6px;
+    }
+
+    .mac-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      image-rendering: pixelated;
+      display: inline-block;
+    }
+
+    .red { background: #ff5f57; }
+    .yellow { background: #ffbd2e; }
+    .green { background: #28c840; }
+
+    .aqua-title {
+      font-size: 16px;
+      font-weight: normal;
+      text-transform: none;
+    }
+
+    .aqua-content {
+      padding: 0;
+      font-size: 14px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .room-cover {
+      flex: 1;
+      width: 100%;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .room-name {
+      background: black;
+      color: white;
+      padding: 2px 6px;
+      font-size: 14px;
+      margin: 8px;
+      border-radius: 3px;
+    }
+
+    .explore-link {
+      display: block;
+      text-align: center;
+      padding: 6px;
+      text-decoration: underline;
+      color: blue;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -62,49 +152,48 @@
     <div class="fm-tiny">FM</div>
   </div>
 
+  <div class="aqua-window">
+    <div class="aqua-titlebar">
+      <div class="mac-dots">
+        <span class="red"></span>
+        <span class="yellow"></span>
+        <span class="green"></span>
+      </div>
+      <div class="aqua-title">Rooms</div>
+    </div>
+    <div class="aqua-content">
+      <div class="room-cover" id="roomCover">
+        <div class="room-name" id="roomName"></div>
+      </div>
+      <a class="explore-link" href="https://bobba.fm/rooms" target="_blank">Explore more rooms</a>
+    </div>
+  </div>
+
   <script>
-    const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
-    const letters = document.querySelectorAll(".symbol");
-    let completedLetters = 0;
+    const rooms = [
+      { name: "Tom's Dungeon", color: "#d26" },
+      { name: "Pixel Paradise", color: "#2ad" },
+      { name: "Club Neon", color: "#ff0" },
+      { name: "Cyber Bathhouse", color: "#0cf" },
+      { name: "Garden of Bobba", color: "#7f7" },
+      { name: "Glitch Room", color: "#f0f" }
+    ];
 
-    function flicker(el, target, prevSymbol, min = 6, max = 12) {
-      let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
-      let count = 0;
-      const interval = setInterval(() => {
-        if (count >= cycles) {
-          el.textContent = target;
-          clearInterval(interval);
-          completedLetters++;
-          if (completedLetters === letters.length) {
-            setTimeout(animate, 6000);
-          }
-        } else {
-          let availableSymbols = symbols.filter(s => s !== prevSymbol());
-          let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
-          el.textContent = newSymbol;
-          count++;
-        }
-      }, 240 + Math.random() * 100);
+    const roomCover = document.getElementById("roomCover");
+    const roomName = document.getElementById("roomName");
+
+    let index = 0;
+    function showRoom(i) {
+      const room = rooms[i];
+      roomCover.style.backgroundColor = room.color;
+      roomName.textContent = room.name;
     }
 
-    function shuffle(array) {
-      return array.map(v => ({ v, s: Math.random() }))
-                  .sort((a, b) => a.s - b.s)
-                  .map(obj => obj.v);
-    }
-
-    function animate() {
-      completedLetters = 0;
-      const shuffled = shuffle(Array.from(letters));
-      shuffled.forEach((el, i) => {
-        setTimeout(() => flicker(el, el.dataset.char, () => {
-          let prev = el.previousElementSibling;
-          return prev ? prev.textContent : '';
-        }), i * 200 + Math.random() * 150);
-      });
-    }
-
-    animate();
+    showRoom(index);
+    setInterval(() => {
+      index = (index + 1) % rooms.length;
+      showRoom(index);
+    }, 6000);
   </script>
 </body>
 </html>
