@@ -226,6 +226,49 @@
           carouselTexts[currentIndex].classList.add('active');
         }, 3000);
       }
+
+      const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
+      const letters = document.querySelectorAll(".symbol");
+      let completedLetters = 0;
+
+      function flicker(el, target, prevSymbol, min = 6, max = 12) {
+        let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
+        let count = 0;
+        const interval = setInterval(() => {
+          if (count >= cycles) {
+            el.textContent = target;
+            clearInterval(interval);
+            completedLetters++;
+            if (completedLetters === letters.length) {
+              setTimeout(animate, 6000);
+            }
+          } else {
+            let availableSymbols = symbols.filter(s => s !== prevSymbol());
+            let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+            el.textContent = newSymbol;
+            count++;
+          }
+        }, 240 + Math.random() * 100);
+      }
+
+      function shuffle(array) {
+        return array.map(v => ({ v, s: Math.random() }))
+                    .sort((a, b) => a.s - b.s)
+                    .map(obj => obj.v);
+      }
+
+      function animate() {
+        completedLetters = 0;
+        const shuffled = shuffle(Array.from(letters));
+        shuffled.forEach((el, i) => {
+          setTimeout(() => flicker(el, el.dataset.char, () => {
+            let prev = el.previousElementSibling;
+            return prev ? prev.textContent : '';
+          }), i * 200 + Math.random() * 150);
+        });
+      }
+
+      animate();
     });
   </script>
 </body>
