@@ -30,28 +30,28 @@
       pointer-events: none;
     }an
     .symbol-container {
-      display: flex;
-      font-size: clamp(1.5rem, 6vw, 4rem);
-      font-family: 'Press Start 2P', monospace;
-      color: white;
-      line-height: 1;
-      background: transparent;
-    }
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  font-size: clamp(1.5rem, 6vw, 4rem);
+  font-family: 'Press Start 2P', monospace;
+  color: white;
+  line-height: 1;
+  background: transparent;
+}
     .symbol {
-      display: inline-block;
-      line-height: 1;
-      background-color: black;
-      color: white;
-      padding: 0 4px;
-      box-sizing: border-box;
-      border-left: none;
-      border-right: none;
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(1.5rem, 6vw, 4rem);
-      width: 4rem;
-      text-align: center;
-      overflow: hidden;
-    }
+  display: inline-block;
+  line-height: 1;
+  background-color: black;
+  color: white;
+  padding: 0 4px;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1.5rem, 6vw, 4rem);
+  width: auto;
+  text-align: center;
+  overflow: hidden;
+}
     .fm-tiny {
       position: absolute;
       top: -0.1rem;
