@@ -188,12 +188,44 @@
         { id: 'roomsWidget', width: 200, height: 160 },
       ];
 
+      const logoRect = document.getElementById('logo-container').getBoundingClientRect();
+      const borderPadding = window.innerWidth > 768 ? 80 : 0; // desktop padding
+
       widgets.forEach(({ id, width, height }) => {
         const widget = document.getElementById(id);
         if (!widget) return;
 
-        widget.style.left = Math.random() * (window.innerWidth - width) + 'px';
-        widget.style.top = Math.random() * (window.innerHeight - height) + 'px';
+        let tries = 0;
+        let maxTries = 50;
+        let placed = false;
+
+        while (!placed && tries < maxTries) {
+          const left = borderPadding + Math.random() * (window.innerWidth - width - 2 * borderPadding);
+          const top = borderPadding + Math.random() * (window.innerHeight - height - 2 * borderPadding);
+
+          const futureRect = {
+            left,
+            top,
+            right: left + width,
+            bottom: top + height
+          };
+
+          const overlap = !(
+            futureRect.right < logoRect.left ||
+            futureRect.left > logoRect.right ||
+            futureRect.bottom < logoRect.top ||
+            futureRect.top > logoRect.bottom
+          );
+
+          if (!overlap) {
+            widget.style.left = left + 'px';
+            widget.style.top = top + 'px';
+            placed = true;
+          }
+
+          tries++;
+        }
+
         widget.style.transform = `rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
 
         widget.addEventListener('mousedown', function (event) {
