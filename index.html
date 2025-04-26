@@ -137,7 +137,198 @@
         visibility: hidden;
       }
     }
+  .chat-widget {
+  position: absolute;
+  z-index: 10;
+  cursor: move;
+  font-weight: normal;
+  width: fit-content;
+  max-width: 240px;
+}
+.chat-bubble {
+  background: #f0f0f0;
+  border: 2px solid #000;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-family: 'VT323', monospace;
+  image-rendering: pixelated;
+  box-shadow: 0 0 0 4px #000;
+  position: relative;
+  outline: 2px solid #000;
+  outline-offset: -4px;
+}
+.chat-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid #f0f0f0;
+  z-index: 2;
+}
+.chat-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 20px solid transparent;
+  z-index: 1;
+  filter: drop-shadow(-2px -2px 0 #000) drop-shadow(2px -2px 0 #000);
+}
+.chat-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 4px;
+  font-size: 1.1rem;
+}
+  .glen-bubble {
+    background: #f0f0f0;
+    border: 2px solid #000;
+    padding: 12px;
+    font-size: 1rem;
+    font-family: 'VT323', monospace;
+    position: relative;
+    max-width: 260px;
+    image-rendering: pixelated;
+  }
+
+  .glen-bubble::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: 2px solid #000;
+    pointer-events: none;
+    box-sizing: border-box;
+  }
+
+  .glen-text {
+    color: #000;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .glen-triangle {
+    position: absolute;
+    bottom: -14px;
+    left: 30px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 14px solid #f0f0f0;
+    z-index: 1;
+  }
+
+  .glen-triangle::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 14px solid #000;
+    z-index: -1;
+  }
+    @font-face {font-family:"silkscreen"; src: url('https://dl.dropbox.com/s/l0frac4d7bz3zx6/silkscreen.ttf');}
+
+    :root {
+      --Speech-Bubble-Border:#222;
+      --Speech-Bubble-Background:#fcfcfc;
+      --Speech-Bubble-Text:#000;
+    }
+
+    #speech-bubble {
+  width: 220px;
+}
+
+    #bub-part-a {
+      margin-left: 6px;
+      width: calc(100% - 12px);
+      height: 2px;
+      background: var(--Speech-Bubble-Border);
+    }
+
+    #bub-part-b {
+      margin-left: 4px;
+      width: calc(100% - 12px);
+      height: 2px;
+      background: var(--Speech-Bubble-Background);
+      border-left: 2px solid var(--Speech-Bubble-Border);
+      border-right: 2px solid var(--Speech-Bubble-Border);
+    }
+
+    #bub-part-c {
+      margin-left: 2px;
+      width: calc(100% - 8px);
+      height: 2px;
+      background: var(--Speech-Bubble-Background);
+      border-left: 2px solid var(--Speech-Bubble-Border);
+      border-right: 2px solid var(--Speech-Bubble-Border);
+    }
+
+    #speech-txt {
+  width: calc(100% - 24px);
+  padding: 10px;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  color: var(--Speech-Bubble-Text);
+  text-align: center;
+  background: var(--Speech-Bubble-Background);
+  border-left: 2px solid var(--Speech-Bubble-Border);
+  border-right: 2px solid var(--Speech-Bubble-Border);
+}
+
+    #speech-arrow {
+      margin-top: -2px;
+      margin-left: 110px;
+    }
+
+    #arrow-w {
+      width: 8px;
+      height: 8px;
+      background: var(--Speech-Bubble-Background);
+      border-left: 2px solid var(--Speech-Bubble-Border);
+      border-right: 2px solid var(--Speech-Bubble-Border);
+    }
+
+    #arrow-x {
+      width: 6px;
+      height: 2px;
+      background: var(--Speech-Bubble-Background);
+      border-left: 2px solid var(--Speech-Bubble-Border);
+      border-right: 2px solid var(--Speech-Bubble-Border);
+    }
+
+    #arrow-y {
+      margin-left: -2px;
+      width: 6px;
+      height: 2px;
+      background: var(--Speech-Bubble-Background);
+      border-left: 2px solid var(--Speech-Bubble-Border);
+      border-right: 2px solid var(--Speech-Bubble-Border);
+    }
+
+    #arrow-z {
+      margin-left: -2px;
+      width: 8px;
+      height: 2px;
+      background: var(--Speech-Bubble-Border);
+    }
   </style>
+
 </head>
 <body>
   <div id="logo-container">
@@ -177,7 +368,33 @@
     </div>
     <div class="mac-footer"><a href="https://bobba.fm/explore" style="color: black; text-decoration: none;">explore more rooms</a></div>
   </div>
-  <footer style="position: fixed; bottom: 6px; width: 100%; text-align: center; font-size: 1rem; color: #999; font-family: 'VT323', monospace; pointer-events: none;">
+</div>
+
+<div class="chat-widget" id="updatesWidget">
+  <div id="speech-bubble">
+    <div id="bub-part-a"></div>
+    <div id="bub-part-b"></div>
+    <div id="bub-part-c"></div>
+    <div id="speech-txt">
+  v0.9.0 BETA<br>
+  Last update: APR 2025<br><br>
+  Follow <a href="https://x.com/playbobbafm" target="_blank" style="color: #000; text-decoration: underline;">@playbobbafm</a> on X for updates
+</div>
+    <div id="bub-part-c"></div>
+    <div id="bub-part-b"></div>
+    <div id="bub-part-a"></div>
+
+    <div id="speech-arrow">
+      <div id="arrow-w"></div>
+      <div id="arrow-x"></div>
+      <div id="arrow-y"></div>
+      <div id="arrow-z"></div>
+    </div>
+  </div>
+</div>
+    
+
+<footer style="position: fixed; bottom: 6px; width: 100%; text-align: center; font-size: 1rem; color: #999; font-family: 'VT323', monospace; pointer-events: none;">
     <span>© 2025 bobba.fm</span> ·
     <span>terms & privacy</span> ·
     <span>contact</span> ·
@@ -186,6 +403,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const widgets = [
+        { id: 'updatesWidget', width: 220, height: 100 },
         { id: 'widget1', width: 200, height: 120 },
         { id: 'roomsWidget', width: 200, height: 160 },
       ];
