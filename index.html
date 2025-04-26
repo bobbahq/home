@@ -159,7 +159,8 @@
       border-left: 2px solid #222;
       border-right: 2px solid #222;
     }
-    #speech-txt {$1font-size: 18px;
+    #speech-txt {
+  font-size: 18px;
       color: #000;
       text-align: center;
       background: #fcfcfc;
@@ -301,9 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return (Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10);
   }
 
-  function setupDraggable(widget) {
-    setupDraggable(widget);
-  }
+  
   // Logo flicker animation
   const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
   const letters = document.querySelectorAll(".symbol");
