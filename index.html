@@ -234,6 +234,7 @@
         widget.addEventListener('touchstart', startDrag, { passive: false });
 
         function startDrag(event) {
+          if (event.target.closest('a')) return;
           event.preventDefault();
           const isTouch = event.type === 'touchstart';
           const clientX = isTouch ? event.touches[0].clientX : event.clientX;
