@@ -49,7 +49,7 @@
       color: black;
       line-height: 1;
     }
-    .widget, .mac-widget {
+    .widget, .mac-widget, .chat-widget {
       position: absolute;
       z-index: 10;
       cursor: move;
@@ -129,6 +129,79 @@
       font-size: 1rem;
       color: #000;
     }
+    .chat-widget {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      max-width: 240px;
+    }
+    #speech-bubble {
+      width: 220px;
+    }
+    #bub-part-a {
+      margin-left: 6px;
+      width: calc(100% - 12px);
+      height: 2px;
+      background: #222;
+    }
+    #bub-part-b {
+      margin-left: 4px;
+      width: calc(100% - 12px);
+      height: 2px;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #bub-part-c {
+      margin-left: 2px;
+      width: calc(100% - 8px);
+      height: 2px;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #speech-txt {
+      width: calc(100% - 24px);
+      padding: 10px;
+      font-family: 'VT323', monospace;
+      font-size: 14px;
+      color: #000;
+      text-align: center;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #speech-arrow {
+      margin-top: -2px;
+      margin-left: 110px;
+    }
+    #arrow-w {
+      width: 8px;
+      height: 8px;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #arrow-x {
+      width: 6px;
+      height: 2px;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #arrow-y {
+      margin-left: -2px;
+      width: 6px;
+      height: 2px;
+      background: #fcfcfc;
+      border-left: 2px solid #222;
+      border-right: 2px solid #222;
+    }
+    #arrow-z {
+      margin-left: -2px;
+      width: 8px;
+      height: 2px;
+      background: #222;
+    }
     .blinking {
       animation: blink 1s steps(2, start) infinite;
     }
@@ -137,198 +210,11 @@
         visibility: hidden;
       }
     }
-  .chat-widget {
-  position: absolute;
-  z-index: 10;
-  cursor: move;
-  font-weight: normal;
-  width: fit-content;
-  max-width: 240px;
-}
-.chat-bubble {
-  background: #f0f0f0;
-  border: 2px solid #000;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  font-family: 'VT323', monospace;
-  image-rendering: pixelated;
-  box-shadow: 0 0 0 4px #000;
-  position: relative;
-  outline: 2px solid #000;
-  outline-offset: -4px;
-}
-.chat-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 20px solid #f0f0f0;
-  z-index: 2;
-}
-.chat-bubble::before {
-  content: "";
-  position: absolute;
-  bottom: -20px;
-  left: 20px;
-  width: 0;
-  height: 0;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 20px solid transparent;
-  z-index: 1;
-  filter: drop-shadow(-2px -2px 0 #000) drop-shadow(2px -2px 0 #000);
-}
-.chat-title {
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #000;
-  margin-bottom: 4px;
-  font-size: 1.1rem;
-}
-  .glen-bubble {
-    background: #f0f0f0;
-    border: 2px solid #000;
-    padding: 12px;
-    font-size: 1rem;
-    font-family: 'VT323', monospace;
-    position: relative;
-    max-width: 260px;
-    image-rendering: pixelated;
-  }
-
-  .glen-bubble::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    border: 2px solid #000;
-    pointer-events: none;
-    box-sizing: border-box;
-  }
-
-  .glen-text {
-    color: #000;
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  .glen-triangle {
-    position: absolute;
-    bottom: -14px;
-    left: 30px;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 14px solid #f0f0f0;
-    z-index: 1;
-  }
-
-  .glen-triangle::after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    left: -12px;
-    width: 0;
-    height: 0;
-    border-left: 12px solid transparent;
-    border-right: 12px solid transparent;
-    border-top: 14px solid #000;
-    z-index: -1;
-  }
-    @font-face {font-family:"silkscreen"; src: url('https://dl.dropbox.com/s/l0frac4d7bz3zx6/silkscreen.ttf');}
-
-    :root {
-      --Speech-Bubble-Border:#222;
-      --Speech-Bubble-Background:#fcfcfc;
-      --Speech-Bubble-Text:#000;
-    }
-
-    #speech-bubble {
-  width: 220px;
-}
-
-    #bub-part-a {
-      margin-left: 6px;
-      width: calc(100% - 12px);
-      height: 2px;
-      background: var(--Speech-Bubble-Border);
-    }
-
-    #bub-part-b {
-      margin-left: 4px;
-      width: calc(100% - 12px);
-      height: 2px;
-      background: var(--Speech-Bubble-Background);
-      border-left: 2px solid var(--Speech-Bubble-Border);
-      border-right: 2px solid var(--Speech-Bubble-Border);
-    }
-
-    #bub-part-c {
-      margin-left: 2px;
-      width: calc(100% - 8px);
-      height: 2px;
-      background: var(--Speech-Bubble-Background);
-      border-left: 2px solid var(--Speech-Bubble-Border);
-      border-right: 2px solid var(--Speech-Bubble-Border);
-    }
-
-    #speech-txt {
-  width: calc(100% - 24px);
-  padding: 10px;
-  font-family: 'VT323', monospace;
-  font-size: 14px;
-  color: var(--Speech-Bubble-Text);
-  text-align: center;
-  background: var(--Speech-Bubble-Background);
-  border-left: 2px solid var(--Speech-Bubble-Border);
-  border-right: 2px solid var(--Speech-Bubble-Border);
-}
-
-    #speech-arrow {
-      margin-top: -2px;
-      margin-left: 110px;
-    }
-
-    #arrow-w {
-      width: 8px;
-      height: 8px;
-      background: var(--Speech-Bubble-Background);
-      border-left: 2px solid var(--Speech-Bubble-Border);
-      border-right: 2px solid var(--Speech-Bubble-Border);
-    }
-
-    #arrow-x {
-      width: 6px;
-      height: 2px;
-      background: var(--Speech-Bubble-Background);
-      border-left: 2px solid var(--Speech-Bubble-Border);
-      border-right: 2px solid var(--Speech-Bubble-Border);
-    }
-
-    #arrow-y {
-      margin-left: -2px;
-      width: 6px;
-      height: 2px;
-      background: var(--Speech-Bubble-Background);
-      border-left: 2px solid var(--Speech-Bubble-Border);
-      border-right: 2px solid var(--Speech-Bubble-Border);
-    }
-
-    #arrow-z {
-      margin-left: -2px;
-      width: 8px;
-      height: 2px;
-      background: var(--Speech-Bubble-Border);
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
-
 </head>
 <body>
   <div id="logo-container">
@@ -343,16 +229,18 @@
       <div class="fm-tiny">FM</div>
     </div>
   </div>
-  <div class="widget" id="widget1">
+
+  <div class="widget" id="aboutWidget">
     <div class="info-text">
       bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.
     </div>
     <div class="info-link">
-  <a href="https://bobba.fm/about" style="color: lightgray; text-decoration: none;">
-    click HERE to know more<span class="blinking">_</span>
-  </a>
-</div>
+      <a href="https://bobba.fm/about" style="color: lightgray; text-decoration: none;">
+        click HERE to know more<span class="blinking">_</span>
+      </a>
+    </div>
   </div>
+
   <div class="mac-widget" id="roomsWidget">
     <div class="mac-header">
       <div class="mac-dot"></div>
@@ -366,180 +254,170 @@
       <div class="carousel-text" style="background:#4682b4">aqua lounge</div>
       <div class="carousel-text" style="background:#8b008b">dream palace</div>
     </div>
-    <div class="mac-footer"><a href="https://bobba.fm/explore" style="color: black; text-decoration: none;">explore more rooms</a></div>
-  </div>
-</div>
-
-<div class="chat-widget" id="updatesWidget">
-  <div id="speech-bubble">
-    <div id="bub-part-a"></div>
-    <div id="bub-part-b"></div>
-    <div id="bub-part-c"></div>
-    <div id="speech-txt">
-  v0.9.0 BETA<br>
-  Last update: APR 2025<br><br>
-  Follow <a href="https://x.com/playbobbafm" target="_blank" style="color: #000; text-decoration: underline;">@playbobbafm</a> on X for updates
-</div>
-    <div id="bub-part-c"></div>
-    <div id="bub-part-b"></div>
-    <div id="bub-part-a"></div>
-
-    <div id="speech-arrow">
-      <div id="arrow-w"></div>
-      <div id="arrow-x"></div>
-      <div id="arrow-y"></div>
-      <div id="arrow-z"></div>
+    <div class="mac-footer">
+      <a href="https://bobba.fm/explore" style="color: black; text-decoration: none;">explore more rooms</a>
     </div>
   </div>
-</div>
-    
 
-<footer style="position: fixed; bottom: 6px; width: 100%; text-align: center; font-size: 1rem; color: #999; font-family: 'VT323', monospace; pointer-events: none;">
+  <div class="chat-widget" id="updatesWidget">
+    <div id="speech-bubble">
+      <div id="bub-part-a"></div>
+      <div id="bub-part-b"></div>
+      <div id="bub-part-c"></div>
+      <div id="speech-txt">
+        v0.9.0 BETA<br>
+        Last update: APR 2025<br><br>follow <a href="https://x.com/playbobbafm" target="_blank" style="color: #000; text-decoration: underline;">@playbobbafm</a> on X for updates
+      </div>
+      <div id="bub-part-c"></div>
+      <div id="bub-part-b"></div>
+      <div id="bub-part-a"></div>
+      <div id="speech-arrow">
+        <div id="arrow-w"></div>
+        <div id="arrow-x"></div>
+        <div id="arrow-y"></div>
+        <div id="arrow-z"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="position: fixed; bottom: 6px; width: 100%; text-align: center; font-size: 1rem; color: #999; font-family: 'VT323', monospace; pointer-events: none;">
     <span>© 2025 bobba.fm</span> ·
     <span>terms & privacy</span> ·
     <span>contact</span> ·
     <span>help</span>
   </footer>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const widgets = [
-        { id: 'updatesWidget', width: 220, height: 100 },
-        { id: 'widget1', width: 200, height: 120 },
-        { id: 'roomsWidget', width: 200, height: 160 },
-      ];
+document.addEventListener('DOMContentLoaded', () => {
+  function randomTilt() {
+    return (Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10);
+  }
 
-      const logoRect = document.getElementById('logo-container').getBoundingClientRect();
-      const borderPadding = window.innerWidth > 768 ? 160 : 0; // desktop padding
+  function setupDraggable(widget) {
+    setupDraggable(widget);
+  }
+  // Logo flicker animation
+  const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
+  const letters = document.querySelectorAll(".symbol");
+  let completedLetters = 0;
 
-      widgets.forEach(({ id, width, height }) => {
-        const widget = document.getElementById(id);
-        if (!widget) return;
-
-        let tries = 0;
-        let maxTries = 50;
-        let placed = false;
-
-        while (!placed && tries < maxTries) {
-          const left = borderPadding + Math.random() * (window.innerWidth - width - 2 * borderPadding);
-          const top = borderPadding + Math.random() * (window.innerHeight - height - 2 * borderPadding);
-
-          const futureRect = {
-            left,
-            top,
-            right: left + width,
-            bottom: top + height
-          };
-
-          const overlap = !(
-            futureRect.right < logoRect.left ||
-            futureRect.left > logoRect.right ||
-            futureRect.bottom < logoRect.top ||
-            futureRect.top > logoRect.bottom
-          );
-
-          if (!overlap) {
-            widget.style.left = left + 'px';
-            widget.style.top = top + 'px';
-            placed = true;
-          }
-
-          tries++;
+  function flicker(el, target, prevSymbol, min = 6, max = 12) {
+    let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
+    let count = 0;
+    const interval = setInterval(() => {
+      if (count >= cycles) {
+        el.textContent = target;
+        clearInterval(interval);
+        completedLetters++;
+        if (completedLetters === letters.length) {
+          setTimeout(animateLogo, 6000);
         }
-
-        widget.style.transform = `rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
-
-        widget.addEventListener('mousedown', startDrag);
-        widget.addEventListener('touchstart', startDrag, { passive: false });
-
-        function startDrag(event) {
-          if (event.target.closest('a')) return;
-          event.preventDefault();
-          const isTouch = event.type === 'touchstart';
-          const clientX = isTouch ? event.touches[0].clientX : event.clientX;
-          const clientY = isTouch ? event.touches[0].clientY : event.clientY;
-          const shiftX = clientX - widget.getBoundingClientRect().left;
-          const shiftY = clientY - widget.getBoundingClientRect().top;
-
-          function moveAt(x, y) {
-            widget.style.left = x - shiftX + 'px';
-            widget.style.top = y - shiftY + 'px';
-          }
-
-          function onMove(event) {
-            const x = event.type.includes('touch') ? event.touches[0].pageX : event.pageX;
-            const y = event.type.includes('touch') ? event.touches[0].pageY : event.pageY;
-            moveAt(x, y);
-          }
-
-          function endDrag() {
-            document.removeEventListener('mousemove', onMove);
-            document.removeEventListener('mouseup', endDrag);
-            document.removeEventListener('touchmove', onMove);
-            document.removeEventListener('touchend', endDrag);
-          }
-
-          document.addEventListener('mousemove', onMove);
-          document.addEventListener('mouseup', endDrag);
-          document.addEventListener('touchmove', onMove, { passive: false });
-          document.addEventListener('touchend', endDrag);
-        }
-
-        widget.ondragstart = () => false;
-      });
-
-      const carouselTexts = document.querySelectorAll('.carousel-text');
-      let currentIndex = 0;
-      if (carouselTexts.length > 0) {
-        setInterval(() => {
-          carouselTexts[currentIndex].classList.remove('active');
-          currentIndex = (currentIndex + 1) % carouselTexts.length;
-          carouselTexts[currentIndex].classList.add('active');
-        }, 3000);
+      } else {
+        let availableSymbols = symbols.filter(s => s !== prevSymbol());
+        let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
+        el.textContent = newSymbol;
+        count++;
       }
+    }, 240 + Math.random() * 100);
+  }
 
-      const symbols = ['@', '#', '$', '%', '!', '&', '*', '+', '?', '>', '¢'];
-      const letters = document.querySelectorAll(".symbol");
-      let completedLetters = 0;
+  function shuffle(array) {
+    return array.map(v => ({ v, s: Math.random() }))
+                .sort((a, b) => a.s - b.s)
+                .map(obj => obj.v);
+  }
 
-      function flicker(el, target, prevSymbol, min = 6, max = 12) {
-        let cycles = Math.floor(Math.random() * (max - min + 1)) + min;
-        let count = 0;
-        const interval = setInterval(() => {
-          if (count >= cycles) {
-            el.textContent = target;
-            clearInterval(interval);
-            completedLetters++;
-            if (completedLetters === letters.length) {
-              setTimeout(animate, 6000);
-            }
-          } else {
-            let availableSymbols = symbols.filter(s => s !== prevSymbol());
-            let newSymbol = availableSymbols[Math.floor(Math.random() * availableSymbols.length)];
-            el.textContent = newSymbol;
-            count++;
-          }
-        }, 240 + Math.random() * 100);
-      }
-
-      function shuffle(array) {
-        return array.map(v => ({ v, s: Math.random() }))
-                    .sort((a, b) => a.s - b.s)
-                    .map(obj => obj.v);
-      }
-
-      function animate() {
-        completedLetters = 0;
-        const shuffled = shuffle(Array.from(letters));
-        shuffled.forEach((el, i) => {
-          setTimeout(() => flicker(el, el.dataset.char, () => {
-            let prev = el.previousElementSibling;
-            return prev ? prev.textContent : '';
-          }), i * 200 + Math.random() * 150);
-        });
-      }
-
-      animate();
+  function animateLogo() {
+    completedLetters = 0;
+    const shuffled = shuffle(Array.from(letters));
+    shuffled.forEach((el, i) => {
+      setTimeout(() => flicker(el, el.dataset.char, () => {
+        let prev = el.previousElementSibling;
+        return prev ? prev.textContent : '';
+      }), i * 200 + Math.random() * 150);
     });
-  </script>
+  }
+
+  animateLogo();
+
+  // Widget placement and drag setup
+  const widgets = [
+    { id: 'aboutWidget', width: 200, height: 120 },
+    { id: 'roomsWidget', width: 200, height: 160 },
+    { id: 'updatesWidget', width: 220, height: 100 },
+  ];
+
+  const logoRect = document.getElementById('logo-container').getBoundingClientRect();
+  const borderPadding = window.innerWidth > 768 ? 160 : 0;
+
+  widgets.forEach(({ id, width, height }) => {
+    const widget = document.getElementById(id);
+    if (!widget) return console.warn(`Widget not found: #${id}`);
+
+    let tries = 0;
+    let placed = false;
+    const maxTries = 50;
+
+    while (!placed && tries < maxTries) {
+      const left = borderPadding + Math.random() * (window.innerWidth - width - 2 * borderPadding);
+      const top = borderPadding + Math.random() * (window.innerHeight - height - 2 * borderPadding);
+
+      const futureRect = { left, top, right: left + width, bottom: top + height };
+      const overlap = !(
+        futureRect.right < logoRect.left ||
+        futureRect.left > logoRect.right ||
+        futureRect.bottom < logoRect.top ||
+        futureRect.top > logoRect.bottom
+      );
+
+      if (!overlap) {
+        widget.style.left = left + 'px';
+        widget.style.top = top + 'px';
+        placed = true;
+      }
+      tries++;
+    }
+
+    widget.style.transform = `rotate(${randomTilt()}deg)`;
+
+    function startDrag(event) {
+      if (event.target.closest('a')) return;
+      event.preventDefault();
+
+      const isTouch = event.type === 'touchstart';
+      const clientX = isTouch ? event.touches[0].clientX : event.clientX;
+      const clientY = isTouch ? event.touches[0].clientY : event.clientY;
+      const shiftX = clientX - widget.getBoundingClientRect().left;
+      const shiftY = clientY - widget.getBoundingClientRect().top;
+
+      function moveAt(x, y) {
+        widget.style.left = x - shiftX + 'px';
+        widget.style.top = y - shiftY + 'px';
+      }
+
+      function onMove(e) {
+        const x = e.type.includes('touch') ? e.touches[0].pageX : e.pageX;
+        const y = e.type.includes('touch') ? e.touches[0].pageY : e.pageY;
+        moveAt(x, y);
+      }
+
+      function endDrag() {
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', endDrag);
+        document.removeEventListener('touchmove', onMove);
+        document.removeEventListener('touchend', endDrag);
+      }
+
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', endDrag);
+      document.addEventListener('touchmove', onMove, { passive: false });
+      document.addEventListener('touchend', endDrag);
+    }
+
+    widget.addEventListener('mousedown', startDrag);
+    widget.addEventListener('touchstart', startDrag, { passive: false });
+    widget.ondragstart = () => false;
+  });
+});
+</script>
 </body>
 </html>
