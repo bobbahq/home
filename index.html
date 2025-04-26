@@ -159,11 +159,7 @@
       border-left: 2px solid #222;
       border-right: 2px solid #222;
     }
-    #speech-txt {
-      width: calc(100% - 24px);
-      padding: 10px;
-      font-family: 'VT323', monospace;
-      font-size: 14px;
+    #speech-txt {$1font-size: 18px;
       color: #000;
       text-align: center;
       background: #fcfcfc;
@@ -214,6 +210,19 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+      .rainbow {
+      background: linear-gradient(270deg, red, orange, yellow, green, cyan, blue, violet);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowShift 6s ease infinite;
+    }
+
+    @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
   </style>
 </head>
 <body>
@@ -232,8 +241,8 @@
 
   <div class="widget" id="aboutWidget">
     <div class="info-text">
-      bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats. still in BETA.
-    </div>
+  bobba FM is a lo-fi add-on for your Habbo room. it lets you personalize your space with music, sound that complements your room, and :idle-friendly beats.
+</div>
     <div class="info-link">
       <a href="https://bobba.fm/about" style="color: lightgray; text-decoration: none;">
         click HERE to know more<span class="blinking">_</span>
@@ -266,7 +275,7 @@
       <div id="bub-part-c"></div>
       <div id="speech-txt">
         v0.9.0 BETA<br>
-        Last update: APR 2025<br><br>follow <a href="https://x.com/playbobbafm" target="_blank" style="color: #000; text-decoration: underline;">@playbobbafm</a> on X for updates
+        Last update: APR 2025<br><br>follow <a href="https://x.com/playbobbafm" target="_blank" style="text-decoration: none;"><span class="rainbow">@playbobbafm</span></a> on X for updates
       </div>
       <div id="bub-part-c"></div>
       <div id="bub-part-b"></div>
