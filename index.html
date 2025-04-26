@@ -230,29 +230,40 @@
 
         widget.style.transform = `rotate(${(Math.random() > 0.5 ? 1 : -1) * (10 + Math.random() * 10)}deg)`;
 
-        widget.addEventListener('mousedown', function (event) {
+        widget.addEventListener('mousedown', startDrag);
+        widget.addEventListener('touchstart', startDrag, { passive: false });
+
+        function startDrag(event) {
           event.preventDefault();
-          const shiftX = event.clientX - widget.getBoundingClientRect().left;
-          const shiftY = event.clientY - widget.getBoundingClientRect().top;
+          const isTouch = event.type === 'touchstart';
+          const clientX = isTouch ? event.touches[0].clientX : event.clientX;
+          const clientY = isTouch ? event.touches[0].clientY : event.clientY;
+          const shiftX = clientX - widget.getBoundingClientRect().left;
+          const shiftY = clientY - widget.getBoundingClientRect().top;
 
-          function moveAt(pageX, pageY) {
-            widget.style.left = pageX - shiftX + 'px';
-            widget.style.top = pageY - shiftY + 'px';
+          function moveAt(x, y) {
+            widget.style.left = x - shiftX + 'px';
+            widget.style.top = y - shiftY + 'px';
           }
 
-          function onMouseMove(event) {
-            moveAt(event.pageX, event.pageY);
+          function onMove(event) {
+            const x = event.type.includes('touch') ? event.touches[0].pageX : event.pageX;
+            const y = event.type.includes('touch') ? event.touches[0].pageY : event.pageY;
+            moveAt(x, y);
           }
 
-          document.addEventListener('mousemove', onMouseMove);
-
-          function onMouseUp() {
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+          function endDrag() {
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', endDrag);
+            document.removeEventListener('touchmove', onMove);
+            document.removeEventListener('touchend', endDrag);
           }
 
-          document.addEventListener('mouseup', onMouseUp);
-        });
+          document.addEventListener('mousemove', onMove);
+          document.addEventListener('mouseup', endDrag);
+          document.addEventListener('touchmove', onMove, { passive: false });
+          document.addEventListener('touchend', endDrag);
+        }
 
         widget.ondragstart = () => false;
       });
